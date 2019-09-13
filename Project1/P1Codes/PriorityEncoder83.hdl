@@ -1,0 +1,63 @@
+//Priority Encoder
+//input is 8-bit long array
+//output is 3-bit long array
+
+CHIP PriorityEncoder83 {
+	IN a[8];
+	OUT out[3], idle;
+
+	PARTS:
+	// figures out idle first, since it is simpler
+	Or8Way(in=a, out=idleOut);
+	Not(in=idleOut, out=idle);
+
+	// This is just to help me visualize the output.
+	// a[7] : out = 111		
+	// a[6] : out = 110
+	// a[5] : out = 101 
+	// a[4] : out = 100
+	// a[3] : out = 011
+	// a[2] : out = 010
+	// a[1] : out = 001
+	// a[0] : out = 000
+
+	// first bit of output 
+	Or(a=a[7], b=a[6], out=Or76);
+	Or(a=a[5], b=a[4], out=Or54);
+	Or(a=Or76, b=Or54, out=out[2]);
+
+	// Second bit of output start here.
+	Or(a=a[3], b=a[2], out=Or32);
+	Nor(a=a[5], b=a[4], out=Nor54);
+	And(a=Or32, b=Nor54, out=AndOr32Nor54);
+	Or(a=Or76, b=AndOr32Nor54, out=out[1]);
+
+	// third bit of output
+
+	// bit 5 is sig if not6
+	Not(in=a[6], out=Not6);
+	And(a=a[5], b=Not6, out=And5N6);
+	
+	// bit 3 is sig if not4 and not6
+	Not(in=a[4], out=Not4);
+	And(a=a[3], b=Not4, out=And3N4);
+	And(a=And3N4, b=Not6, out=And3N46);
+
+	// bit 1 is sig if not2 and not4 and not6
+	Not(in=a[2], out=Not2);
+	And(a=a[1], b=Not2, out=And1N2);
+	And(a=And1N2, b=Not4, out=And1N24);
+	And(a=And1N24, b=Not6, out=And1N246);
+
+	// bit 7 is always significant, but otherise find the most significant.
+	Or(a=a[7], b=And5N6, out=Out0Or1);
+	Or(a=Out0Or1, b=And3N46, out=Out0Or2);
+	Or(a=Out0Or2, b=And1N246, out=out[0]);
+
+
+
+
+
+
+
+}
