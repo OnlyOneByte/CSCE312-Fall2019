@@ -7,12 +7,15 @@
  *  or too odd and have heart disease.
  */
 
+// Rengang (Angelo) Yang
+// CSCE 312 - 503
+// UIN: 526009738
+// Project 1
 CHIP Exercise2 {
     IN tooYoung, tooShort, tooOld, haveHeartDisease;
     OUT canGetOnRide; //can get onto the ride
 
     PARTS:
-    // Put your code here:
     And(a=tooYoung, b=tooShort, out=tooSmall);
     And(a=tooOld, b=haveHeartDisease, out=oldAf);
 

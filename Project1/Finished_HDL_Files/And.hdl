@@ -8,7 +8,11 @@
  * out = 1 if (a == 1 and b == 1)
  *       0 otherwise
  */
-
+ 
+// Rengang (Angelo) Yang
+// CSCE 312 - 503
+// UIN: 526009738
+// Project 1
 CHIP And {
     IN a, b;
     OUT out;

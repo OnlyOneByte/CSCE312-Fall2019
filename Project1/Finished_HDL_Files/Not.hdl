@@ -8,6 +8,10 @@
  * out = not in
  */
 
+// Rengang (Angelo) Yang
+// CSCE 312 - 503
+// UIN: 526009738
+// Project 1
 CHIP Not {
     IN in;
     OUT out;

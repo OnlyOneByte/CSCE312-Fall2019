@@ -7,13 +7,15 @@
  * or if he or she has not had breakfast before the exam
  */
 
+// Rengang (Angelo) Yang
+// CSCE 312 - 503
+// UIN: 526009738
+// Project 1
 CHIP Exercise1 {
     IN Studied, hadBreakfast; //Studied all night, and have had breakfast 
     OUT isFailed; //Did the student failed the exam
 
     PARTS:
-    // Put your code here:
-
     Not(in=hadBreakfast, out=notBreakf);
     Or(a=Studied, b=notBreakf, out=isFailed);
 

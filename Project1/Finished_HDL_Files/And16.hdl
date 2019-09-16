@@ -8,6 +8,10 @@
  * for i = 0..15: out[i] = (a[i] and b[i])
  */
 
+// Rengang (Angelo) Yang
+// CSCE 312 - 503
+// UIN: 526009738
+// Project 1
 CHIP And16 {
     IN a[16], b[16];
     OUT out[16];

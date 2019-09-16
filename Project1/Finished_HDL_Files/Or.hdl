@@ -9,13 +9,15 @@
  *       0 otherwise
  */
 
+// Rengang (Angelo) Yang
+// CSCE 312 - 503
+// UIN: 526009738
+// Project 1
 CHIP Or {
     IN a, b;
     OUT out;
 
     PARTS:
-    // Put your code here:
-	
 	Nor(a=a,b=b,out=norOut);
 	Not(in=norOut, out=out);
 }

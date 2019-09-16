@@ -2,6 +2,11 @@
 //input is 8-bit long array
 //output is 3-bit long array
 
+
+// Rengang (Angelo) Yang
+// CSCE 312 - 503
+// UIN: 526009738
+// Project 1
 CHIP PriorityEncoder83 {
 	IN a[8];
 	OUT out[3], idle;
@@ -31,8 +36,6 @@ CHIP PriorityEncoder83 {
 	Nor(a=a[5], b=a[4], out=Nor54);
 	And(a=Or32, b=Nor54, out=AndOr32Nor54);
 	Or(a=Or76, b=AndOr32Nor54, out=out[1]);
-
-	// third bit of output
 
 	// bit 5 is sig if not6
 	Not(in=a[6], out=Not6);

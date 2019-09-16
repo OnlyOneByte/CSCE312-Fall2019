@@ -9,6 +9,10 @@
  *          {0, in} if sel == 1
  */
 
+// Rengang (Angelo) Yang
+// CSCE 312 - 503
+// UIN: 526009738
+// Project 1
 CHIP DMux {
     IN in, sel;
     OUT a, b;

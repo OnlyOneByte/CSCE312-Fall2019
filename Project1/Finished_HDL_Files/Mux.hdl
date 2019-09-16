@@ -9,6 +9,10 @@
  *       b otherwise
  */
 
+// Rengang (Angelo) Yang
+// CSCE 312 - 503
+// UIN: 526009738
+// Project 1
 CHIP Mux {
     IN a, b, sel;
     OUT out;

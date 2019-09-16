@@ -8,6 +8,11 @@
  * out = (in[0] or in[1] or ... or in[7])
  */
 
+
+// Rengang (Angelo) Yang
+// CSCE 312 - 503
+// UIN: 526009738
+// Project 1
 CHIP Or8Way {
     IN in[8];
     OUT out;

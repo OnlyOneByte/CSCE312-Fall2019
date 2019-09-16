@@ -8,12 +8,16 @@
  * for i=0..15: out[i] = not in[i]
  */
 
+
+// Rengang (Angelo) Yang
+// CSCE 312 - 503
+// UIN: 526009738
+// Project 1
 CHIP Not16 {
     IN in[16];
     OUT out[16];
 
     PARTS:
-    // Put your code here:
 	// why is there no for loop in hdl :(
 	Not(in=in[0], out=out[0]);
 	Not(in=in[1], out=out[1]);
