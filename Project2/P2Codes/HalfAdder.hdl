@@ -13,5 +13,11 @@ CHIP HalfAdder {
         carry;  // Left bit of a + b
 
     PARTS:
-
+/*
+    Rengang (Angelo) Yang
+    CSCE 312 Section 503
+    UIN: 526009738
+*/
+    And(a=a, b=b, out=carry);
+    Xor(a=a, b=b, out=sum);
 }
