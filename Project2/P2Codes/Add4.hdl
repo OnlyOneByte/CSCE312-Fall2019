@@ -1,0 +1,17 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/02/Adder16.hdl
+
+/**
+ * Adds two 4-bit values.
+ */
+
+CHIP Add4 {
+    IN a[4], b[4], carryIn;
+    OUT out[4],carry;
+
+    PARTS:
+   // Put you code here:
+  
+}

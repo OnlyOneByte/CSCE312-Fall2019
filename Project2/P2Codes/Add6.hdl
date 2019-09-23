@@ -1,0 +1,17 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/02/Adder16.hdl
+
+/**
+ * Adds two 6-bit values. Use ONLY the Add4 (4-bit adder)chips you have created to design Add6 
+ */
+
+CHIP Add6 {
+    IN a[6], b[6], carryIn;
+    OUT out[6],carry;
+
+    PARTS:
+   // Put you code here:
+
+}
