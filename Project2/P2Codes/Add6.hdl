@@ -17,13 +17,6 @@ CHIP Add6 {
         CSCE 312 Section 503
         UIN: 526009738
     */
-    
-    
-    /*
-    Both the HDL survival guide and the Appendix A HDL Chapter don't properly describe how to subbus.
-    The only way I could see to downsize a bus to use immediately would to be 
-
-    */
 
     Add4(a=a[0..3], b=b[0..3], carryIn=carryIn, out=out[0..3], carry=car1);
     Add4(a[0..1]=a[4..5], b[0..1]=b[4..5], carryIn=car1, out[0..1]=out[4..5], out[2]=carry);
