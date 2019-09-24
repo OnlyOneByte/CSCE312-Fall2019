@@ -32,9 +32,50 @@ CHIP ALU-nostat {
         f,  // compute out = x + y (if 1) or x & y (if 0)
         no; // bitwise not (1's complement) the out output?
 
+        // did you mean 2's complement? lol 😅😅😅😅😅
+
     OUT 
         out[16]; // 16-bit output
 
     PARTS:        
+    /*
+        Rengang (Angelo) Yang
+        CSCE 312 Section 503
+        UIN: 526009738
+    */
+
+    // 2 shift-by-8's = cleared register.
+    //handles zx (zeroes out x)
+    LeftLogicBitshift(x=x, y[3]=zx, out=shiftX1);
+    LeftLogicBitshift(x=shiftX1, y[3]=zx, out=output, out=x);
+
+    //handles nx (negates x)
+    Mux16(a=false, b=true, sel=nx, out=nx16); // makes nx to 16 bit signal.
+    // thanks to: http://nand2tetris-questions-and-answers-forum.32033.n3.nabble.com/Internal-pin-to-bus-td4026005.html
+    // for the suggestion.
+    Not16(in=x, out=notX);
+    And16(a=notX, b=nx16, out=x);
+
+    //handles zy
+    LeftLogicBitshift(x=y, y[3]=zy, out=shiftY1);
+    LeftLogicBitshift(x=shiftY1, y[3]=zy, out=y);
+
+    // handles ny (negates y)
+    Mux16(a=false, b=true, sel=ny, out=ny16);
+    Not16(in=y, out=notY);
+    And16(a=notY, b=ny16, out=y);
+
+
+    // handles f (adds x and y)
+    Mux16(a=false, b=true, sel=f, out=f16);
+    Add16(a=x, b=y, out=addXY);
+    And16(a=addXY, b=f16, out=out);
+
+    // handles no (bitwise not of output.)
+    Mux16(a=false, b=true, sel=no, out=no16);
+    Negation(in=output, out=NegOutput);
+    And16(a=NegOutput, b=no16, out=output);
+
+
 
 }

@@ -20,6 +20,7 @@ CHIP LeftLogicBitshift {
     */
 
     // please add for loops >:(
+    // also this can theoretically handle up to 15 shifts
     
     // mux's to shift by one.
     // shift selector bit is y[0], 0 = a, 1 = b
