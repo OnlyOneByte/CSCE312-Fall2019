@@ -42,6 +42,44 @@ CHIP ALU {
         ng; // 1 if (out < 0),  0 otherwise
 
     PARTS:
-   // Put you code here:
-   
+    /*
+        Rengang (Angelo) Yang
+        CSCE 312 Section 503
+        UIN: 526009738
+    */
+
+    //handles zx (zeroes out x)
+    Mux16(a=x, b=false, sel=zx, out=xClear);
+    //handles nx (negates x)
+    Not16(in=xClear, out=notX);
+    // chooses negation or not negation.
+    Mux16(a=xClear, b=notX, sel=nx, out=xDone);
+
+
+    //handles zy
+    Mux16(a=y, b=false, sel=zy, out=yClear);
+    // handles ny (negates y)
+    Not16(in=yClear, out=notY);
+    // chooses negation or not negation.
+    Mux16(a=yClear, b=notY, sel=ny, out=yDone);
+
+
+
+    // f compute out = x + y (if 1) or x & y (if 0)
+    Add16(a=xDone, b=yDone, out=addXY);
+    And16(a=xDone, b=yDone, out=andXY);
+    Mux16(a=andXY, b=addXY, sel=f, out=fDone);
+
+    // handles no. chooses between the negated or not negated.
+    Not16(in=fDone, out=notfDone);
+    Mux16(a=fDone, b=notfDone, sel=no, out=out, out[0..7]=out1, out[8..15]=out2, out[15]=MSBout);
+
+    // MSB is + or - if 1, ng is true
+    And(a=MSBout, b=true, out=ng);
+
+    // checks if is 0 using.
+    Or8Way(in=out1, out=zrOr8Way1);
+    Or8Way(in=out2, out=zrOr8Way2);
+    Or(a=zrOr8Way1, b=zrOr8Way2, out=orZR);
+    Not(in=orZR, out=zr);
 }
