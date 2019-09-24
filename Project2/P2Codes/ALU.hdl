@@ -72,12 +72,10 @@ CHIP ALU {
 
     // handles no. chooses between the negated or not negated.
     Not16(in=fDone, out=notfDone);
-    Mux16(a=fDone, b=notfDone, sel=no, out=out, out[0..7]=out1, out[8..15]=out2, out[15]=MSBout);
+    // out[15] is MSB and returns whether it is negative.
+    Mux16(a=fDone, b=notfDone, sel=no, out=out, out[0..7]=out1, out[8..15]=out2, out[15]=ng);
 
-    // MSB is + or - if 1, ng is true
-    And(a=MSBout, b=true, out=ng);
-
-    // checks if is 0 using.
+    // checks if is 0 using or 8 ways
     Or8Way(in=out1, out=zrOr8Way1);
     Or8Way(in=out2, out=zrOr8Way2);
     Or(a=zrOr8Way1, b=zrOr8Way2, out=orZR);
