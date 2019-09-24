@@ -12,6 +12,14 @@ CHIP Add4 {
     OUT out[4],carry;
 
     PARTS:
-   // Put you code here:
-  
+    /*
+        Rengang (Angelo) Yang
+        CSCE 312 Section 503
+        UIN: 526009738
+    */
+
+    FullAdder(a=a[0], b=b[0], c=carryIn, sum=sum[0], carry=carr1);
+    FullAdder(a=a[1], b=b[1], c=carr1, sum=sum[1], carry=carr2);
+    FullAdder(a=a[2], b=b[2], c=carr2, sum=sum[2], carry=carr3);
+    FullAdder(a=a[3], b=b[3], c=carr3, sum=sum[3], carry=carry);
 }

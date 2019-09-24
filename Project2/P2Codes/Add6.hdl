@@ -12,6 +12,10 @@ CHIP Add6 {
     OUT out[6],carry;
 
     PARTS:
-   // Put you code here:
-
+    /*
+        Rengang (Angelo) Yang
+        CSCE 312 Section 503
+        UIN: 526009738
+    */
+    Add4(a=a[0..3], b=b[0..3], carryIn=carryIn, out=out[0..3], carry=carry1);
 }
