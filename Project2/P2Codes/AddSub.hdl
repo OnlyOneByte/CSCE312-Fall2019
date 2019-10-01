@@ -1,0 +1,28 @@
+    /*
+        Rengang (Angelo) Yang
+        CSCE 312 Section 503
+        UIN: 526009738
+    */
+
+
+    /*
+        Bonus as described in L9 slide #9. 
+        Made to be 16 bits to take advantage of existing
+        Mux16, Negation, and Add16 logic chips.
+        
+        input is expected as signed 2's complement #
+
+        a + b if sub = 0
+        a - b if sub = 1
+
+    */
+    CHIP AddSub {
+        IN a[16], b[16], sub;
+        OUT out[16];
+
+        PARTS:
+        Negation(in=b, out=negB);
+        Mux16(a=b, b=negB, sel=sub, out=bFinal);
+
+        Add16(a=a, b=bFinal, out=out);
+    }
