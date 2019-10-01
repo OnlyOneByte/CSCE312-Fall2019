@@ -3,4 +3,5 @@
 *.pdf
 projects_old/
 tools/
+tools_better/
 *.out
