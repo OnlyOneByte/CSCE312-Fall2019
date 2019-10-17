@@ -15,6 +15,14 @@ CHIP RAM64 {
     OUT out[16];
 
     PARTS:
+    /*  
+        Rengang Yang
+        CSCE 312 Section 503
+        UIN: 526009738
+        Project 3
+
+        RAM64.hdl
+    */
 
 
     // 8xRAM8 = RAM64
