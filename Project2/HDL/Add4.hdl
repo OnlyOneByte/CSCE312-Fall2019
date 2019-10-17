@@ -1,0 +1,25 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/02/Adder16.hdl
+
+/**
+ * Adds two 4-bit values.
+ */
+
+CHIP Add4 {
+    IN a[4], b[4], carryIn;
+    OUT out[4],carry;
+
+    PARTS:
+    /*
+        Rengang (Angelo) Yang
+        CSCE 312 Section 503
+        UIN: 526009738
+    */
+
+    FullAdder(a=a[0], b=b[0], c=carryIn, sum=out[0], carry=carr1);
+    FullAdder(a=a[1], b=b[1], c=carr1, sum=out[1], carry=carr2);
+    FullAdder(a=a[2], b=b[2], c=carr2, sum=out[2], carry=carr3);
+    FullAdder(a=a[3], b=b[3], c=carr3, sum=out[3], carry=carry);
+}
