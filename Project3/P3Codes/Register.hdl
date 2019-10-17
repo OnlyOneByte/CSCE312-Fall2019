@@ -14,6 +14,15 @@ CHIP Register {
     OUT out[16];
 
     PARTS:
+
+    /*  
+        Rengang Yang
+        CSCE 312 Section 503
+        UIN: 526009738
+        Project 3
+
+        Register.hdl
+    */
     Bit(in=in[0], load=load, out=out[0]);
     Bit(in=in[1], load=load, out=out[1]);
     Bit(in=in[2], load=load, out=out[2]);
