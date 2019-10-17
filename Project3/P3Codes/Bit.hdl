@@ -14,6 +14,14 @@ CHIP Bit {
     OUT out;
 
     PARTS:
+    /*  
+        Rengang Yang
+        CSCE 312 Section 503
+        UIN: 526009738
+        Project 3
+
+        Bit.hdl
+    */
 
     Mux(a=out2, b=in, sel=load, out=nowIn);
     DFF(in=nowIn, out=out, out=out2);
