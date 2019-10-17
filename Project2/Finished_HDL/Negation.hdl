@@ -1,0 +1,25 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/02/Negation.hdl
+
+/**
+ * Negate a 16-bit number, be aware that first bit is the sign-bit. 
+ * 2’s complement of the input 
+ */
+
+CHIP Negation {
+    IN in[16];
+    OUT out[16];
+
+    PARTS:
+    /*
+        Rengang (Angelo) Yang
+        CSCE 312 Section 503
+        UIN: 526009738
+    */
+
+    // Flip the bits and add 1
+    Not16(in=in, out=flippedBits);
+    Inc16(in=flippedBits, out=out);
+}

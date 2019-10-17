@@ -1,0 +1,103 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/02/LeftLogicBitshift.hdl
+
+/**
+ * Shift x left y bits, new bits are filled in with 0, you may not use any DFF or clocked chip in this implementation
+ * You may assume the maximum shift is 8-bit
+ */
+
+CHIP LeftLogicBitshift {
+    IN x[16], y[16];
+    OUT out[16];
+
+    PARTS:
+    /*
+        Rengang (Angelo) Yang
+        CSCE 312 Section 503
+        UIN: 526009738
+    */
+
+    // please add for loops >:(
+    // also this can theoretically handle up to 15 shifts
+    
+    // mux's to shift by one.
+    // shift selector bit is y[0], 0 = a, 1 = b
+    Mux(a=x[0], b=false, sel=y[0], out=S1B0); //Shift1Bit0
+    Mux(a=x[1], b=x[0], sel=y[0], out=S1B1); //shift1Bit1
+    Mux(a=x[2], b=x[1], sel=y[0], out=S1B2);
+    Mux(a=x[3], b=x[2], sel=y[0], out=S1B3);
+    Mux(a=x[4], b=x[3], sel=y[0], out=S1B4); 
+    Mux(a=x[5], b=x[4], sel=y[0], out=S1B5);
+    Mux(a=x[6], b=x[5], sel=y[0], out=S1B6); 
+    Mux(a=x[7], b=x[6], sel=y[0], out=S1B7); 
+    Mux(a=x[8], b=x[7], sel=y[0], out=S1B8); 
+    Mux(a=x[9], b=x[8], sel=y[0], out=S1B9); 
+    Mux(a=x[10], b=x[9], sel=y[0], out=S1B10); 
+    Mux(a=x[11], b=x[10], sel=y[0], out=S1B11); 
+    Mux(a=x[12], b=x[11], sel=y[0], out=S1B12); 
+    Mux(a=x[13], b=x[12], sel=y[0], out=S1B13); 
+    Mux(a=x[14], b=x[13], sel=y[0], out=S1B14); 
+    Mux(a=x[15], b=x[14], sel=y[0], out=S1B15); 
+
+
+    // mux's to shift by 2
+    // shift selector bit is y[1], 0 = a, 1 = b
+    Mux(a=S1B0, b=false, sel=y[1], out=S2B0); //Shift2Bit0
+    Mux(a=S1B1, b=false, sel=y[1], out=S2B1); //shift2Bit1
+    Mux(a=S1B2, b=S1B0, sel=y[1], out=S2B2);
+    Mux(a=S1B3, b=S1B1, sel=y[1], out=S2B3);
+    Mux(a=S1B4, b=S1B2, sel=y[1], out=S2B4);
+    Mux(a=S1B5, b=S1B3, sel=y[1], out=S2B5);
+    Mux(a=S1B6, b=S1B4, sel=y[1], out=S2B6);
+    Mux(a=S1B7, b=S1B5, sel=y[1], out=S2B7);
+    Mux(a=S1B8, b=S1B6, sel=y[1], out=S2B8);
+    Mux(a=S1B9, b=S1B7, sel=y[1], out=S2B9);
+    Mux(a=S1B10, b=S1B8, sel=y[1], out=S2B10);
+    Mux(a=S1B11, b=S1B9, sel=y[1], out=S2B11);
+    Mux(a=S1B12, b=S1B10, sel=y[1], out=S2B12);
+    Mux(a=S1B13, b=S1B11, sel=y[1], out=S2B13);
+    Mux(a=S1B14, b=S1B12, sel=y[1], out=S2B14);
+    Mux(a=S1B15, b=S1B13, sel=y[1], out=S2B15);
+
+
+    // mux's to shift by 4
+    // shift selector bit is y[2], 0 = a, 1 = b
+    Mux(a=S2B0, b=false, sel=y[2], out=S3B0); //Shift2Bit0
+    Mux(a=S2B1, b=false, sel=y[2], out=S3B1); //shift2Bit1
+    Mux(a=S2B2, b=false, sel=y[2], out=S3B2);
+    Mux(a=S2B3, b=false, sel=y[2], out=S3B3);
+    Mux(a=S2B4, b=S2B0, sel=y[2], out=S3B4);
+    Mux(a=S2B5, b=S2B1, sel=y[2], out=S3B5);
+    Mux(a=S2B6, b=S2B2, sel=y[2], out=S3B6);
+    Mux(a=S2B7, b=S2B3, sel=y[2], out=S3B7);
+    Mux(a=S2B8, b=S2B4, sel=y[2], out=S3B8);
+    Mux(a=S2B9, b=S2B5, sel=y[2], out=S3B9);
+    Mux(a=S2B10, b=S2B6, sel=y[2], out=S3B10);
+    Mux(a=S2B11, b=S2B7, sel=y[2], out=S3B11);
+    Mux(a=S2B12, b=S2B8, sel=y[2], out=S3B12);
+    Mux(a=S2B13, b=S2B9, sel=y[2], out=S3B13);
+    Mux(a=S2B14, b=S2B10, sel=y[2], out=S3B14);
+    Mux(a=S2B15, b=S2B11, sel=y[2], out=S3B15);
+
+    // mux's to shift by 8
+    // shift selector bit is y[3], 0 = a, 1 = b
+    Mux(a=S3B0, b=false, sel=y[3], out=out[0]); //Shift2Bit0
+    Mux(a=S3B1, b=false, sel=y[3], out=out[1]); //shift2Bit1
+    Mux(a=S3B2, b=false, sel=y[3], out=out[2]);
+    Mux(a=S3B3, b=false, sel=y[3], out=out[3]);
+    Mux(a=S3B4, b=false, sel=y[3], out=out[4]);
+    Mux(a=S3B5, b=false, sel=y[3], out=out[5]);
+    Mux(a=S3B6, b=false, sel=y[3], out=out[6]);
+    Mux(a=S3B7, b=false, sel=y[3], out=out[7]);
+    Mux(a=S3B8, b=S3B0, sel=y[3], out=out[8]);
+    Mux(a=S3B9, b=S3B1, sel=y[3], out=out[9]);
+    Mux(a=S3B10, b=S3B2, sel=y[3], out=out[10]);
+    Mux(a=S3B11, b=S3B3, sel=y[3], out=out[11]);
+    Mux(a=S3B12, b=S3B4, sel=y[3], out=out[12]);
+    Mux(a=S3B13, b=S3B5, sel=y[3], out=out[13]);
+    Mux(a=S3B14, b=S3B6, sel=y[3], out=out[14]);
+    Mux(a=S3B15, b=S3B7, sel=y[3], out=out[15]);
+
+}
