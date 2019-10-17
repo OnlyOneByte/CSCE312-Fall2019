@@ -15,6 +15,14 @@ CHIP RAM8 {
     OUT out[16];
 
     PARTS:
+    /*  
+        Rengang Yang
+        CSCE 312 Section 503
+        UIN: 526009738
+        Project 3
+
+        RAM8.hdl
+    */
 
     // 8 registers
     Register(in=in, load=load0, out=out0);
