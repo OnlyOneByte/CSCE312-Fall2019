@@ -26,6 +26,11 @@ CHIP RAM512 {
     RAM64(in=in, load=load6, address=address[0..5], out=out6);
     RAM64(in=in, load=load7, address=address[0..5], out=out7);
 
+    /*
+        I used the 8 way dmux and mux to save space, but this could easily
+        be replaced with two mux/dmux4way controlled by a mux.
+    */
+
     // choosing which ram64. Upper 3 bits of address dictates that
     DMux8Way(in=load, sel=address[6..8], a=load0, b=load1, c=load2, d=load3, e=load4, f=load5, g=load6, h=load7);
 
