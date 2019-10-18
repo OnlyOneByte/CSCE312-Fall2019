@@ -3,7 +3,7 @@
 // by Nisan and Schocken, MIT Press.
 // File name: projects/03/AggieCipher.hdl
 
-/**
+/*
  * Implement a 4-bit dynamic shift cipher(we call it aggie cipher :)) that computes out=in+counter, where counter=<0,1,2,3,4,5,6,....,15,0,1,2,...>
  * You may use the 4-bit adder you implemented in project 2
  */
@@ -13,7 +13,12 @@ CHIP AggieCipher {
     OUT out[4];
     
 	PARTS:
-    // Put your code here:
-	
+    // loads in 0, and then continually increments it until it reaches
+    // I could manage the other bits, but their actions don't actually matter
+    // since it just keeps tracks how many times its looped.
+    // The behavior of the counter doesn't change. The last 4 bits still increment 0-15 normally
+    PC(in=false, load=false, inc=true, reset=false, out[0..3]=cntr);
+    
+    Add16(a[0..3]=in, b[0..3]=cntr, out[0..3]=out);
 	
 }
