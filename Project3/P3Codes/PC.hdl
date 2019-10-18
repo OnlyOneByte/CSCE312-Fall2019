@@ -16,14 +16,21 @@ CHIP PC {
     OUT out[16];
 
     PARTS:
+    /*  
+        Rengang Yang
+        CSCE 312 Section 503
+        UIN: 526009738
+        Project 3
+
+        PC.hdl
+    */
+
     Register(in=finalIn, load=true, out=out, out=currVal);
     /*
         Based on the tst file, my conclusions for the OOP (order of operations)
         is as follows:
         Reset > load > inc
     */
-
-
     // chooses the incremented value or previous value in register
     Inc16(in=currVal, out=incrementedCurr);
     Mux16(a=currVal, b=incrementedCurr, sel=inc, out=incCondMux);
