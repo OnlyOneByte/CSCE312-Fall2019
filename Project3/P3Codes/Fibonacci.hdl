@@ -6,5 +6,31 @@ CHIP Fibonacci {
 	OUT out[16];
 
 	PARTS:
-	//Put your code here
+
+
+	// this is designed as the given example.
+	Mux16(a=f0, b=sumOut, sel=msel, out=mux0);
+	Register(in=mux0, load=enable1, out=reg0);
+	
+	Mux16(a=f1, b=reg0, sel=msel, out=mux1);
+	Register(in=mux1, load=enable2, out=reg1);
+
+	Add16(a=reg1, b=reg0, out=sumReg1Reg0);
+	Register(in=sumReg1Reg0, load=enable3, out=sumOut, out=out);
+	
+
+
+
+	/*
+		This system works very simply by putting the sum of reg0 and reg 1
+		into reg2, then the value in reg0 trickles down into reg1, and then the sum
+		in reg2 trickles down into reg0.
+
+		This requires a complicated systems of timings with enable to achieve though.
+		If this system only used 2 registers (possible), the timing could be simplified down
+		to only require a built in program counter.
+	*/
+
+	
 }
+
