@@ -13,6 +13,16 @@ CHIP AggieCipher {
     OUT out[4];
     
 	PARTS:
+    /*  
+        Rengang Yang
+        CSCE 312 Section 503
+        UIN: 526009738
+        Project 3
+
+        AggieCipher.hdl
+    */
+
+
     // loads in 0, and then continually increments it until it reaches
     // I could manage the other bits, but their actions don't actually matter
     // since it just keeps tracks how many times its looped.
