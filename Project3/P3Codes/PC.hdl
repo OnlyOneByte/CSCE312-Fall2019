@@ -16,5 +16,21 @@ CHIP PC {
     OUT out[16];
 
     PARTS:
-    Register(in=, load=, out=out);
+    Register(in=finalIn, load=true, out=out, out=currVal);
+    /*
+        Based on the tst file, my conclusions for the OOP (order of operations)
+        is as follows:
+        Reset > load > inc
+    */
+
+
+    // chooses the incremented value or previous value in register
+    Inc16(in=currVal, out=incrementedCurr);
+    Mux16(a=currVal, b=incrementedCurr, sel=inc, out=incCondMux);
+
+    // chooses current or previous mux output
+    Mux16(a=incCondMux, b=in, sel=load, out=loadCondMux);
+
+    // chooses reset or previous mux output
+    Mux16(a=loadCondMux, b=false, sel=reset, out=finalIn);
 }
