@@ -35,6 +35,10 @@ CHIP RAM8 {
     Register(in=in, load=load7, out=out7);
 
     // load determined by dmux's
+    /*
+        I used the 8 way dmux and mux to save space, but this could easily
+        be replaced with two mux/dmux4way controlled by a mux.
+    */
     DMux8Way(in=load, sel=address, a=load0, b=load1, c=load2, d=load3, e=load4, f=load5, g=load6, h=load7);
 
     // output determined by Mux's
