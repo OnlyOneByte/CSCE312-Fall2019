@@ -36,7 +36,8 @@ CHIP Fibonacci {
 
 		This requires a complicated systems of timings with enable to achieve though.
 		If this system only used 2 registers (possible), the timing could be simplified down
-		to only require a built in program counter.
+		to only require a built in program counter, since you could just look at the LSB to
+		determine timing. 
 	*/
 
 	
