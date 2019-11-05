@@ -1,14 +1,15 @@
 // Rengang (Angelo) Yang 526009738
 // CSCE 312 - 503
-// Does the operation a/b. The value of A is R0, value of B is in R1
-// value stored in r2
+// Does the operation a%b. The value of A is R0, value of B is in R1
+// value stored in R2
 
-// sets R2 to 0
-@R2
-M = 0
 // grabs the dividend
 @R0
 D = M
+
+// sets R2 to initial Value
+@R2
+M = D
 
 // checks for case when a = 0
 @END
@@ -23,9 +24,9 @@ D = D-M
 D, JLT
 // increments counter
 @R2
-M = M+1
+M = D
 
-// loop agaon
+// loop again
 @LOOP
 0, JMP
 
