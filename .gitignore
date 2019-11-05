@@ -7,3 +7,6 @@ tools_better/
 *.out
 
 turnin-files/
+bin/
+built*/
+OS/
