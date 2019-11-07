@@ -1,0 +1,48 @@
+CHIP Bonus {
+    IN in[4], load;
+    OUT red, green, yellow;
+
+    PARTS:
+    /*  
+        Rengang Yang
+        CSCE 312 Section 503
+        UIN: 526009738
+        Project 3 - BONUS CHIP
+
+        Bonus.hdl
+    */
+    
+    // counter with 4 bit output
+    // loads in the first val, but only if the "load" is active.
+    PC(in[0..3]=in, load=load, inc=true, reset=false, out[0]=a, out[1]=b, out[2]=c, out[3]=d);
+
+    Not(in=a, out=notA);
+    Not(in=b, out=notB);
+    Not(in=c, out=notC);
+    Not(in=d, out=notD);
+
+
+    // d = cntr[3], c = cntr[2], b = cntr[1], a = cntr[0]
+
+    // red light logic
+    // red light = (a’c’d’)+(b’c’d’)
+    And(a=notA, b=notC, out=r1);    // a'c'
+    And(a=r1, b=notD, out=r2);      // a'c'd'
+    And(a=notB, b=notC, out=r3);    // b'c'
+    And(a=r3, b=notD, out=r4);      // b'c'd'
+    Or(a=r4, b=r2, out=red);        // final eqn as stated above.
+
+
+    // green light logic
+    // green light = (abc')+(cd')+(c'd)
+    // abc' + c xor d
+    Xor(a=c, b=d, out=g1);  // c xor d
+    And(a=a, b=b, out=g2);   // a and b
+    And(a=g2, b=notC, out=g3); // abc'
+    Or(a=g3, b=g1, out=green);  // final equation.
+
+
+    // yellow light
+    // yellow = cd
+    And(a=c, b=d, out=yellow);      // cd
+}
