@@ -25,6 +25,15 @@
  * than to the address resulting from executing the current instruction. 
  */
 
+
+ /*
+    Rengang (Angelo) Yang
+    526009738
+    Project 5
+    
+    CPU.hdl
+ */
+
 CHIP CPU {
 
     IN  inM[16],         // M value input  (M = contents of RAM[A])
@@ -39,5 +48,118 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    // Put your code here:
+    // for reference
+    // 1  1  1  a  c1 c2 c3 c4 c5 c6 d1 d2 d3 j1 j2 j3
+    // 15,14,13,12,11,10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
+    // built based off of the example given in the slides for set 18-HACK CPU
+
+    // ======= checks if Register A load is true =======
+    // this checks if 15th bit is a instruction
+    Not(in=instruction[15], out=AInstruction);  
+    // this checks if its a c instruction, but A is destination (d1)
+    And(a=instruction[15], b=instruction[5], out=CInstrucStoreA);
+    Or(a=AInstruction, b=CInstrucStoreA, out=LoadA);
+
+    // chooses between instruction or ALU Out
+    // If its an A Instruction, it loads from instruction
+    Mux16(a=ALUOut, b=instruction, sel=AInstruction, out=AMuxOut);
+
+    // A Register. Loads when d1 is true, outputs to ARegOut and also to Address M
+    ARegister(in=AMuxOut, load=LoadA, out=ARegOut, out[0..14]=addressM);
+
+
+
+
+
+
+    // ======= checks if Register D load is true =======
+    // makes sure that its not an A instruction, and d2 is true
+    And(a=instruction[15], b=instruction[4], out=LoadD);
+
+    // D Register. Loads when d2 is true
+    DRegister(in=ALUOut, load=LoadD, out=DRegOut);
+
+    // checks for M load
+    // loading M is based on d3, or instruc[3]
+    Mux(a=false, b=true, sel=instruction[3], out=writeMuxM);
+    // Also must be that its not an A instruction
+    And(a=instruction[15], b=writeMuxM, out=writeM);
+
+
+
+    // PC Counter -> loads when jump statement is true
+    PC(in=ARegOut, load=jump, inc=true, reset=reset, out[0..14]=pc);
+
+
+    // Jump logic
+    // ALU outputs Z-EQ and Z-LT (=0 and <0 respectively)
+    // The rest of the jumps can be determined by combinations of each.
+    /*
+        Jump reference
+        2  1  0
+        j1 j2 j3
+        0  0  0 = no jump
+        0  0  1 = JGT
+        0  1  0 = JEQ
+        0  1  1 = JGE
+        1  0  0 = JLT
+        1  0  1 = JNE
+        1  1  0 = JLE
+        1  1  1 = JMP
+    */
+    // greater than 0 is when its not less than or equal to 0.
+    Not(in=Z-EQ, out=not0);
+    Not(in=Z-LT, out=notLess0);
+    And(a=not0, b=notLess0, out=Z-GT);
+
+    // when J1 and Z-LT is true, jump
+    And(a=instruction[2], b=Z-LT, out=lessThan0);
+
+    // When J2 and Z-EQ is true, jump
+    And(a=instruction[1], b=Z-EQ, out=equal0);
+
+    // when J3 and Z-GT is true, jump
+    And(a=instruction[0], b=Z-GT, out=greaterThan0);
+
+    // If any was true, then jump
+    Or(a=lessThan0, b=equal0, out=jumpOr1);
+    Or(a=jumpOr1, b=greaterThan0, out=jumpMain);
+
+    // makes sure its a C-instruction
+    And(a=jumpMain, b=instruction[15], out = jump);
+
+
+
+    // Mux for y on ALU (Selects between either A or M)
+    // this is done with bit a, bit 13, instruc[12]
+    And(a=instruction[15], b=instruction[12], out=AMSelect);
+    Mux16(a=ARegOut, b=inM, sel=AMSelect, out=yALU);
+
+
+/*  ALU reference
+    if (zx == 1) set x = 0        // 16-bit constant
+    if (nx == 1) set x = !x       // bitwise not
+    if (zy == 1) set y = 0        // 16-bit constant
+    if (ny == 1) set y = !y       // bitwise not
+    if (f == 1)  set out = x + y  // integer 2's complement addition
+        if (f == 0)  set out = x & y  // bitwise and
+    if (no == 1) set out = !out   // bitwise not
+    if (out == 0) set zr = 1
+    if (out < 0) set ng = 1
+*/
+    ALU(x=DRegOut, y=yALU, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=ALUOut, out=outM, zr=Z-EQ, ng=Z-LT);
+
+    // setting all ALU inputs to 1 returns 1. I'm guessing thats why all the c bits are 1 when comp is 1
+    // c1 (11) = zx (confirmed via first comp)
+    // c2 (10) = nx??
+    // c3 (9)  = zy (confirmed via first comp)
+    // c4 (8)  = ny??
+    // c5 (7)  = f???
+    // c6 (6)  = no (confirmed via first comp)
+
+
+
+
+
+    
 }
