@@ -14,10 +14,25 @@
  * with the computer via the keyboard.
  */
 
+ /*
+    rengang (Angelo) yang
+    526009738
+    Project 5
+
+    Computer.hdl
+ */
+
 CHIP Computer {
 
     IN reset;
 
     PARTS:
-    // Put your code here:
+
+    // designed as described in the Chapter 18 lecture
+
+    CPU(inM=memOut, instruction=instrc, reset=reset, outM=outToM, writeM=loadM, addressM=addrM, pc=pcOut);
+
+    Memory(in=outToM, load=loadM, address=addrM, out=memOut);
+
+    ROM32K(address=pcOut, out=instrc);
 }
